@@ -120,15 +120,15 @@ let customer = getCustomer(1);
 console.log(customer?.birthday?.getFullYear());
 
 interface testType {
-  a: number
+  a: number;
 }
 
 interface testType2 extends testType {
-  b: number
+  b: number;
 }
 
 interface testType3 {
-  c: number
+  c: number;
 }
 
 class Test implements testType2, testType3 {
@@ -136,18 +136,109 @@ class Test implements testType2, testType3 {
   b = 1;
   a = 3;
 
-
   setData = () => {
-    console.log(this.a)
-    this.a = 10
-  }
+    console.log(this.a);
+    this.a = 10;
+  };
 
   getData = () => {
-    console.log(this.a)
-    this.a = 10
-  }
+    console.log(this.a);
+    this.a = 10;
+  };
 }
 
-let a = new Test()
-a.setData()
-a.getData()
+let a = new Test();
+a.setData();
+a.getData();
+
+class Point {
+  a?: number;
+}
+
+interface Shape {
+  b?: number;
+}
+
+type Perimeter = {
+  c?: number;
+};
+
+type RectangleShape = Shape & Perimeter & Point;
+//  Shape & Perimeter & Point
+
+// type cant use with extends
+class Rectangle implements Perimeter {
+  c = 1;
+}
+
+class Rectangle2 implements Shape, Perimeter, Point {
+  b = 1;
+  c = 1;
+  a = 1;
+}
+
+type RectangleShape1 = Partial<Shape & Perimeter> & Point;
+
+class Rectangle3 implements RectangleShape1 {}
+
+interface Counter {
+  // callable part
+  (start: number): void;
+  // static properties
+  interval: number;
+  reset(): void;
+}
+
+const getCount = () => {
+  const count = ((start: number) => {}) as Counter;
+  count.interval = 123;
+  count.reset = () => {};
+  return count;
+};
+
+const callable = getCount();
+callable(10);
+callable.reset();
+callable.interval = 5;
+
+interface CounterFn {
+  (start: number): void;
+}
+
+type CounterStatic = {
+  interval: number;
+  reset(): void;
+};
+
+type Counter2 = CounterFn & CounterStatic;
+
+interface Counter3 extends CounterFn, CounterStatic {}
+
+type Box = { h: number; w: number };
+type Box = { scale: number };
+
+const box: Box = { h: 1, w: 2, scale: 10 };
+
+interface Box2 {
+  h: number;
+  w: number;
+}
+interface Box2 {
+  scale: number;
+}
+
+const box2: Box2 = {
+  h: 10,
+  w: 20,
+  scale: 30,
+};
+
+// // BAD ###############
+// interface Props extends OwnProps, InjectedProps, StoreProps {}
+// type OwnProps = {...}
+// type StoreProps = {...}
+
+// // GOOD ##############
+// type Props = OwnProps & InjectedProps & StoreProps
+// type OwnProps = {...}
+// type StoreProps = {...}
