@@ -81,4 +81,22 @@ function getCustomer(id) {
 }
 let customer = getCustomer(1);
 console.log((_a = customer === null || customer === void 0 ? void 0 : customer.birthday) === null || _a === void 0 ? void 0 : _a.getFullYear());
+class Test {
+    constructor() {
+        this.c = 4;
+        this.b = 1;
+        this.a = 3;
+        this.setData = () => {
+            console.log(this.a);
+            this.a = 10;
+        };
+        this.getData = () => {
+            console.log(this.a);
+            this.a = 10;
+        };
+    }
+}
+let a = new Test();
+a.setData();
+a.getData();
 //# sourceMappingURL=index.js.map

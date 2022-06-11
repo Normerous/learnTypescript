@@ -118,3 +118,36 @@ function getCustomer(id: number): Customer | null {
 
 let customer = getCustomer(1);
 console.log(customer?.birthday?.getFullYear());
+
+interface testType {
+  a: number
+}
+
+interface testType2 extends testType {
+  b: number
+}
+
+interface testType3 {
+  c: number
+}
+
+class Test implements testType2, testType3 {
+  c = 4;
+  b = 1;
+  a = 3;
+
+
+  setData = () => {
+    console.log(this.a)
+    this.a = 10
+  }
+
+  getData = () => {
+    console.log(this.a)
+    this.a = 10
+  }
+}
+
+let a = new Test()
+a.setData()
+a.getData()
